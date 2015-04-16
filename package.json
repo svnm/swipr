@@ -1,0 +1,11 @@
+{
+  "name": "swipr",
+  "version": "1.0.0",
+  "description": "a minimal swipe carousel",
+  "main": "js/main.js",
+  "dependencies": {
+    "hammerjs": "~2.0.4"
+  },
+  "author": "Steven Iseki",
+  "license": "MIT"
+}
