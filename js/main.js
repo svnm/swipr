@@ -1,8 +1,4 @@
-/* globals jQuery */
-/* exported lory */
-
 'use strict';
-
 
 var swipr = function (slider, opts) {
 
