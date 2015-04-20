@@ -30,6 +30,10 @@
     line-height: 0;
     overflow: hidden;
     white-space: nowrap;
+    -webkit-user-select: none;
+    -moz-user-select: none; 
+    -o-user-select: none;
+    user-select: none;
 }
 
 .swipr li {
