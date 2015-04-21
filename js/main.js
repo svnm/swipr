@@ -1,35 +1,46 @@
 'use strict';
 
-var swipr = function (slider, opts) {
 
-    /**
-     * slider DOM elements
-     */
+var swipr = function (slider, opts) {
 
     var options = require('./options');
     var translate = require('./translate');
     var slide = require('./slide');
     var Hammer = require("hammerjs");
-
+    var position = require('./position');
+    var domElements = require('./domElements');
     var touchOffset;
     var delta;
     var isScrolling;
 
-    var domElements = require('./domElements');
-    domElements.frame = slider.querySelector('.js_frame');
+    /* dom elements and position */
+    domElements.frame = slider.querySelector('.swipr');
     domElements.slideContainer = domElements.frame.querySelector('.swipr_slides');
-    domElements.prevCtrl = slider.querySelector('.js_prev');
-    domElements.nextCtrl = slider.querySelector('.js_next');
+    domElements.prevCtrl = slider.querySelector('.swipr_prev');
+    domElements.nextCtrl = slider.querySelector('.swipr_next');
 
-    var position = require('./position');
+    position.x = domElements.slideContainer.offsetLeft;
+    position.y = domElements.slideContainer.offsetTop;
+
+    /* set up slides */
+    options.slides = Array.prototype.slice.call(domElements.slideContainer.children);
+
+    /**
+     * if object is jQuery convert to native DOM element
+     */
+    if (typeof jQuery !== 'undefined' && slider instanceof jQuery) {
+        slider = slider[0];
+    }
     
-
+    /**
+     * public
+     * onPanstart function: called once panning has started
+     */
     var onPanstart = function (event) {
 
         touchOffset = {
             x: event.pointers[0].pageX,
-            y: event.pointers[0].pageY,
-            time: Date.now()
+            y: event.pointers[0].pageY
         };
 
         isScrolling = undefined;
@@ -63,7 +74,7 @@ var swipr = function (slider, opts) {
 
     };
 
-
+    /* initialize hammerjs on the slider element */
     var mc = new Hammer(domElements.slideContainer);    
     mc.on("panstart", onPanstart);
 
@@ -80,9 +91,14 @@ var swipr = function (slider, opts) {
 
     resetSlider();
 
+    /**
+     * onResize function: event for resize of page
+     */
     var onResize = function () {
         resetSlider();
     };
+
+    window.addEventListener('resize', onResize);
 
     /**
      * prev function: called on clickhandler
@@ -101,19 +117,6 @@ var swipr = function (slider, opts) {
     if (domElements.prevCtrl && domElements.nextCtrl) {
         domElements.prevCtrl.addEventListener('click', prev);
         domElements.nextCtrl.addEventListener('click', next);
-    }
-
-    window.addEventListener('resize', onResize);
-
-
-    options.slides = Array.prototype.slice.call(domElements.slideContainer.children);
-
-
-    /**
-     * if object is jQuery convert to native DOM element
-     */
-    if (typeof jQuery !== 'undefined' && slider instanceof jQuery) {
-        slider = slider[0];
     }
 
 
