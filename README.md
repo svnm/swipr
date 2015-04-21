@@ -42,7 +42,8 @@ add some html
 ```
 
 initialize the swipr instance on your dom element.
-if you are using node, bundle this main.js module to a bundle and include it on your page
+
+if using node, bundle this main.js module to a bundle and include it on your page
 
 ```javascript
   // Compile this script with Browserify then include it.
@@ -57,7 +58,7 @@ you will need some basic styles
 
 ```css
   /* Include some basic styles for your slides, here is a basic example */
-  [swipr style.css](https://raw.githubusercontent.com/isekivacenz/swipr/master/example/styles.css)
+  [style.css](https://raw.githubusercontent.com/isekivacenz/swipr/master/example/styles.css)
 ```
 
 
