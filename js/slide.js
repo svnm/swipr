@@ -1,4 +1,4 @@
-// TODO: Pump out slide
+
 var slide = function (nextIndex, direction) {
 
     var clamp = require('./clamp');
