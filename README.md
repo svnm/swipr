@@ -12,7 +12,7 @@ originally forked from [lory.js](http://meandmax.github.io/lory/) the touch enab
 
 ## Usage
 
-- add some html
+- <b>add some html</b>
 
 ```html
 <div class="swipr_example">
@@ -31,9 +31,9 @@ originally forked from [lory.js](http://meandmax.github.io/lory/) the touch enab
 <script src="/scripts/bundle.js"></script>
 ```
 
-- now some javascript 
+- <b>now some javascript</b>
 
-<b>using node / commonJs</b>
+<i>using node / commonJs</i>
 
 Use browserify to bundle your main file below to bundle.js
 
@@ -49,7 +49,7 @@ initialize the swipr instance on your dom element.
     });
 ```
 
-<b>or... just throwing it in the browser</b>
+<i>or... throwing it in the browser</i>
 
 include swipr.min.js, note this includes hammer.js pre baked.
 
@@ -60,7 +60,7 @@ include swipr.min.js, note this includes hammer.js pre baked.
     });
 ```
 
-- you need some minimal css for styling your slides
+- <b>you need some minimal css for styling your slides</b>
 
 [style.css](https://raw.githubusercontent.com/isekivacenz/swipr/master/example/styles.css)
 
