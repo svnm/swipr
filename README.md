@@ -16,15 +16,11 @@ add some html
 
 ```html
 <div class="swipr_example">
-
     <div class="swipr">
         <ul class="swipr_slides">
             <li>1</li>
             <li>2</li>
             <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
         </ul>
     </div>
 
@@ -37,7 +33,7 @@ add some html
     </span>
 </div>
 
-  <script src="/scripts/bundle.js"></script>
+<script src="/scripts/bundle.js"></script>
 
 ```
 
@@ -62,7 +58,7 @@ initialize the swipr instance on your dom element.
     });
 ```
 
-<b>just throwing it in the browser</b>
+<b>or... just throwing it in the browser</b>
 
 include swipr.min.js, note this includes hammer.js pre baked.
 
@@ -77,10 +73,8 @@ in your main.js file initialize the swipr instance on your dom element.
 
 you will need some basic styles for your slider, which of course can be customized
 
-```css
-  /* Include some basic styles for your slides, here is a basic example */
-  [style.css](https://raw.githubusercontent.com/isekivacenz/swipr/master/example/styles.css)
-```
+[style.css](https://raw.githubusercontent.com/isekivacenz/swipr/master/example/styles.css)
+
 
 ## License
 
