@@ -35,7 +35,6 @@ swipr is a minimal swipe carousel
 
   <script src="/scripts/bundle.js"></script>
 
-
 ```
 
 ```javascript
@@ -46,6 +45,11 @@ swipr is a minimal swipe carousel
         swipr(simple);
     });
 ```
+
+```css
+  /* Include some basic styles for your slides, here is a basic example */
+```
+
 
 ## License
 
