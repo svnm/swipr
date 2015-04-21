@@ -6,7 +6,7 @@ swipr is a minimal swipe carousel
 
 ## Installation
 
-`npm install react-swipr --save`
+`npm install swipr --save`
 
 ## Usage
 
