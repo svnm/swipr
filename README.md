@@ -12,7 +12,7 @@ originally forked from [lory.js](http://meandmax.github.io/lory/) the touch enab
 
 ## Usage
 
-###html
+add some html
 
 ```html
 <div class="swipr_example">
@@ -41,7 +41,8 @@ originally forked from [lory.js](http://meandmax.github.io/lory/) the touch enab
 
 ```
 
-###javascript
+initialize the swipr instance on your dom element.
+if you are using node, bundle this main.js module to a bundle and include it on your page
 
 ```javascript
   // Compile this script with Browserify then include it.
@@ -52,34 +53,14 @@ originally forked from [lory.js](http://meandmax.github.io/lory/) the touch enab
     });
 ```
 
-###css
+you will need some basic styles
 
 ```css
   /* Include some basic styles for your slides, here is a basic example */
+  [swipr style.css](https://raw.githubusercontent.com/isekivacenz/swipr/master/example/styles.css)
 ```
 
 
 ## License
 
-(The MIT License)
-
-Copyright (c) 2015 isekivacenz &lt;stevenisekimartin@gmail.com&gt;
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+[MIT](http://opensource.org/licenses/MIT)
