@@ -1,8 +1,10 @@
 # swipr
 
-swipr is a minimal swipe carousel
+swipr is a very minimal touch enabled swipe carousel
 
 ![](http://img1.wikia.nocookie.net/__cb20130426021828/villains/images/thumb/7/78/Swiper.jpg/500px-Swiper.jpg)
+
+originally forked from [lory.js](http://meandmax.github.io/lory/) the touch enabled minimalistic slider written in vanilla JavaScript
 
 ## Installation
 
