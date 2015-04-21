@@ -10,6 +10,8 @@ swipr is a minimal swipe carousel
 
 ## Usage
 
+###html
+
 ```html
 <div class="swipr_example">
 
@@ -37,6 +39,8 @@ swipr is a minimal swipe carousel
 
 ```
 
+###javascript
+
 ```javascript
   // Compile this script with Browserify then include it.
     var swipr = require('swipr');
@@ -45,6 +49,8 @@ swipr is a minimal swipe carousel
         swipr(simple);
     });
 ```
+
+###css
 
 ```css
   /* Include some basic styles for your slides, here is a basic example */
