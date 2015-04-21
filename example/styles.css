@@ -55,7 +55,6 @@
     display: inline-block;
 }
 
-
 /* next / prev */
 
 .swipr_prev, .swipr_next {
@@ -78,12 +77,7 @@
     width: 25px;
 }
 
-
 @media screen and (min-width: 640px ) {
-
-    /**
-     * Slider specific styles
-     */
 
     .swipr_example {
         width: 640px;
@@ -101,10 +95,6 @@
 }
 
 @media screen and (min-width: 980px ) {
-
-    /**
-     * Slider specific styles
-     */
 
     .swipr_example {
         width: 980px;

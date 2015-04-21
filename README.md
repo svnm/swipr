@@ -41,12 +41,20 @@ add some html
 
 ```
 
+<b>using node / commonJs</b>
+
+Use browserify to build your main file below to bundle.js
+first install browserify
+    
+`npm install -g browserify`
+
+then bundle up your modules
+
+`browserify main.js -o bundle.js`
+
 initialize the swipr instance on your dom element.
 
-if using node, bundle this main.js module to a bundle and include it on your page
-
 ```javascript
-  // Compile this script with Browserify then include it.
     var swipr = require('swipr');
     document.addEventListener('DOMContentLoaded', function () {
         var simple = document.querySelector('.react-swipr');
@@ -54,13 +62,25 @@ if using node, bundle this main.js module to a bundle and include it on your pag
     });
 ```
 
-you will need some basic styles
+<b>just throwing it in the browser</b>
+
+include swipr.min.js, note this includes hammer.js pre baked.
+
+in your main.js file initialize the swipr instance on your dom element.
+
+```javascript
+    document.addEventListener('DOMContentLoaded', function () {
+        var simple = document.querySelector('.react-swipr');
+        swipr(simple);
+    });
+```
+
+you will need some basic styles for your slider, which of course can be customized
 
 ```css
   /* Include some basic styles for your slides, here is a basic example */
   [style.css](https://raw.githubusercontent.com/isekivacenz/swipr/master/example/styles.css)
 ```
-
 
 ## License
 
