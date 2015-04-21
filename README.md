@@ -12,7 +12,7 @@ originally forked from [lory.js](http://meandmax.github.io/lory/) the touch enab
 
 ## Usage
 
-add some html
+- add some html
 
 ```html
 <div class="swipr_example">
@@ -31,7 +31,7 @@ add some html
 <script src="/scripts/bundle.js"></script>
 ```
 
-now some javascript 
+- now some javascript 
 
 <b>using node / commonJs</b>
 
@@ -60,7 +60,7 @@ include swipr.min.js, note this includes hammer.js pre baked.
     });
 ```
 
-you will need some basic styles for your slider, which of course can be customized
+- you need some minimal css for styling your slides
 
 [style.css](https://raw.githubusercontent.com/isekivacenz/swipr/master/example/styles.css)
 
