@@ -5,7 +5,7 @@
   "main": "js/main.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/StevenIseki/react-search.git"
+    "url": "https://github.com/isekivacenz/swipr.git"
   },
   "dependencies": {
     "hammerjs": "~2.0.4"
