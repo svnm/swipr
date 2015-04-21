@@ -25,17 +25,14 @@ var swipr = function (slider, opts) {
     /* set up slides */
     options.slides = Array.prototype.slice.call(domElements.slideContainer.children);
 
-    /**
-     * if object is jQuery convert to native DOM element
-     */
+    /* if object is jQuery convert to native DOM element */
     if (typeof jQuery !== 'undefined' && slider instanceof jQuery) {
         slider = slider[0];
     }
-    
+
     /**
-     * public
-     * onPanstart function: called once panning has started
-     */
+     * onPanstart function: called when panning kicks off
+     */    
     var onPanstart = function (event) {
 
         touchOffset = {

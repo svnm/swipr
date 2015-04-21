@@ -1,4 +1,9 @@
-
+/**
+ * slide function: slides to a given position in a given time in milliseconds
+ *
+ * @nextIndex {number} index number for the next slide
+ * @direction {bool} true is forwards, false is reverse
+ */
 var slide = function (nextIndex, direction) {
 
     var clamp = require('./clamp');

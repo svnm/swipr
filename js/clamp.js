@@ -1,11 +1,15 @@
+/**
+ * clamp function: Returns a number whose value is limited to the given range.
+ *
+ * @min {number} minimum number in range
+ * @max {number} maximum number in range
+ */
 var clamp = function (min, max) {
-    // Set min to 0 if only one value specified
     if (typeof max === 'undefined') {
         max = min;
         min = 0;
     }
 
-    // Swap min and max if required
     if (min > max) {
         var tmp = min;
         min = max;
