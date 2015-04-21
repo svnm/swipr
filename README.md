@@ -37,14 +37,11 @@ add some html
 
 ```
 
+now some javascript 
+
 <b>using node / commonJs</b>
 
-Use browserify to build your main file below to bundle.js
-first install browserify
-    
-`npm install -g browserify`
-
-then bundle up your modules
+Use browserify to bundle your main file below to bundle.js
 
 `browserify main.js -o bundle.js`
 
@@ -74,7 +71,6 @@ in your main.js file initialize the swipr instance on your dom element.
 you will need some basic styles for your slider, which of course can be customized
 
 [style.css](https://raw.githubusercontent.com/isekivacenz/swipr/master/example/styles.css)
-
 
 ## License
 
