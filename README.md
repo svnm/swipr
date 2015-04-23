@@ -55,7 +55,7 @@ include swipr.min.js, note this includes hammer.js pre baked.
 
 ```javascript
     document.addEventListener('DOMContentLoaded', function () {
-        var simple = document.querySelector('.react-swipr');
+        var simple = document.querySelector('.swipr-example');
         swipr(simple);
     });
 ```
