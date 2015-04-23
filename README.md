@@ -44,7 +44,7 @@ initialize the swipr instance on your dom element.
 ```javascript
     var swipr = require('swipr');
     document.addEventListener('DOMContentLoaded', function () {
-        var simple = document.querySelector('.react-swipr');
+        var simple = document.querySelector('.swipr-example');
         swipr(simple);
     });
 ```
