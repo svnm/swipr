@@ -14,6 +14,9 @@ var swipr = function (slider, opts) {
      */    
     var onPanstart = function (event) {
 
+        config.domElements.slidesWidth = config.domElements.slideContainer.getBoundingClientRect().width || config.domElements.slideContainer.offsetWidth;
+        config.domElements.frameWidth = config.domElements.frame.getBoundingClientRect().width || config.domElements.frame.offsetWidth;
+
         touchOffset = {
             x: event.pointers[0].pageX,
             y: event.pointers[0].pageY
@@ -139,7 +142,6 @@ var swipr = function (slider, opts) {
         config.domElements.slidesWidth = config.domElements.slideContainer.getBoundingClientRect().width || config.domElements.slideContainer.offsetWidth;
         config.domElements.frameWidth = config.domElements.frame.getBoundingClientRect().width || config.domElements.frame.offsetWidth;
         config.options.index = 0;
-        translate(config.options.index, config.options.rewindSpeed, config.options.ease);
     };
 
     resetSlider();
@@ -179,6 +181,7 @@ var swipr = function (slider, opts) {
         config.domElements.prevCtrl.addEventListener('click', prev);
         config.domElements.nextCtrl.addEventListener('click', next);
     }
+
 
     return {
 
