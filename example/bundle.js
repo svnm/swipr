@@ -3,24 +3,21 @@
 
 	 first install browserify
     npm install -g browserify
-
 	 then run
 	  browserify main.js -o bundle.js
 */
 
-/* make sure you have npm install swipr
-  then this line will be 
-   var swipr = require('./swipr') 
-  in your own example;
+/* make sure you have run npm install swipr
+  then this line would be 
+   var swipr = require('swipr') 
 */
-
 var swipr = require('../js/main.js');
 
 document.addEventListener('DOMContentLoaded', function () {
     var simple = document.querySelector('.swipr_example');
     swipr(simple);
 });
-},{"../js/main.js":4}],2:[function(require,module,exports){
+},{"../js/main.js":3}],2:[function(require,module,exports){
 /**
  * clamp function: Returns a number whose value is limited to the given range.
  *
@@ -47,54 +44,24 @@ var clamp = function (min, max) {
 module.exports = clamp;
 
 },{}],3:[function(require,module,exports){
-var domElements = {
-  frame: undefined,
-  slideContainer: undefined,
-  prevCtrl: undefined,
-  nextCtrl: undefined,
-  slidesWidth: undefined,
-  frameWidth: undefined
-};
-
-module.exports = domElements;
-
-},{}],4:[function(require,module,exports){
 'use strict';
-
 
 var swipr = function (slider, opts) {
 
-    var options = require('./options');
     var translate = require('./translate');
-    var slide = require('./slide');
+    var clamp = require('./clamp');
     var Hammer = require("hammerjs");
-    var position = require('./position');
-    var domElements = require('./domElements');
     var touchOffset;
     var delta;
     var isScrolling;
-
-    /* dom elements and position */
-    domElements.frame = slider.querySelector('.swipr');
-    domElements.slideContainer = domElements.frame.querySelector('.swipr_slides');
-    domElements.prevCtrl = slider.querySelector('.swipr_prev');
-    domElements.nextCtrl = slider.querySelector('.swipr_next');
-
-    position.x = domElements.slideContainer.offsetLeft;
-    position.y = domElements.slideContainer.offsetTop;
-
-    /* set up slides */
-    options.slides = Array.prototype.slice.call(domElements.slideContainer.children);
-
-    /* if object is jQuery convert to native DOM element */
-    if (typeof jQuery !== 'undefined' && slider instanceof jQuery) {
-        slider = slider[0];
-    }
 
     /**
      * onPanstart function: called when panning kicks off
      */    
     var onPanstart = function (event) {
+
+        config.domElements.slidesWidth = config.domElements.slideContainer.getBoundingClientRect().width || config.domElements.slideContainer.offsetWidth;
+        config.domElements.frameWidth = config.domElements.frame.getBoundingClientRect().width || config.domElements.frame.offsetWidth;
 
         touchOffset = {
             x: event.pointers[0].pageX,
@@ -105,6 +72,7 @@ var swipr = function (slider, opts) {
 
         delta = {};
 
+        /* on panning */
         mc.off("panmove");
         mc.on("panmove",function (event) {
 
@@ -120,34 +88,114 @@ var swipr = function (slider, opts) {
             }
 
             if (!isScrolling) {
-                translate(position.x + delta.x, 0, null);
+                translate(config.position.x + delta.x, 0, config.options.ease, config.domElements.slideContainer.style);
             }
         });
 
+        /* panning ends */
         mc.off("panend");
-        mc.on("panend",function() {
-            var direction = delta.x < 0;
-            slide(false, direction);
-        });
+        mc.on("panend",function (event) {
 
+            var direction = delta.x < 0;
+            var maxOffset   = (config.domElements.slidesWidth - config.domElements.frameWidth);
+            var limitOffset = clamp(maxOffset * -1, 0);
+            var limitIndex  = clamp(0, config.options.slides.length - 1);
+            var duration    = config.options.slideSpeed;
+
+            /* update the index */
+            if (direction) {
+                config.options.nextIndex = config.options.index + config.options.slidesToScroll;
+            } else {
+                config.options.nextIndex = config.options.index - config.options.slidesToScroll;
+            }
+            config.options.nextIndex = limitIndex(config.options.nextIndex);
+
+            var nextOffset = limitOffset(config.options.slides[config.options.nextIndex].offsetLeft * -1);
+
+            /* on rewind */
+            if (config.options.rewind && Math.abs(config.position.x) === maxOffset && direction) {
+                nextOffset = 0;
+                config.options.nextIndex  = 0;
+                duration = config.options.rewindSpeed;
+            }
+
+            /* translate to the nextOffset by a defined duration and ease function */
+            translate((nextOffset), duration, config.options.ease, config.domElements.slideContainer.style);
+
+            /* update the position with the next position */
+            config.position.x = nextOffset;
+
+            /* update the index with the nextIndex if offset of the nextIndex is in the range of the maxOffset */
+            if (config.options.slides[config.options.nextIndex].offsetLeft <= maxOffset) {
+                config.options.index = config.options.nextIndex;
+                config.options.nextIndex++;
+            }
+
+        });
     };
 
-    /* initialize hammerjs on the slider element */
-    var mc = new Hammer(domElements.slideContainer);    
-    mc.on("panstart", onPanstart);
+
+    /**
+     * config function: options stored for the swipr instance
+     */
+    var config = function (slider) {
+
+        this.domElements = {
+          frame: undefined,
+          slideContainer: undefined,
+          prevCtrl: undefined,
+          nextCtrl: undefined,
+          slidesWidth: undefined,
+          frameWidth: undefined
+        };
+
+        this.domElements.frame = slider.querySelector('.swipr');
+        this.domElements.slideContainer = this.domElements.frame.querySelector('.swipr_slides');
+        this.domElements.prevCtrl = slider.querySelector('.swipr_prev');
+        this.domElements.nextCtrl = slider.querySelector('.swipr_next');
+
+        this.position = {
+          x: undefined,
+          y: undefined
+        };
+
+        this.position.x = this.domElements.slideContainer.offsetLeft;
+        this.position.y = this.domElements.slideContainer.offsetTop;
+
+        this.options = {
+          slidesToScroll: 1,
+          slideSpeed: 300,
+          rewindSpeed: 600,
+          snapBackSpeed: 200,
+          ease: 'ease',
+          rewind: true,
+          index: 0,
+          nextIndex: 1,
+          slides: undefined
+        };
+
+        this.options.slides = Array.prototype.slice.call(this.domElements.slideContainer.children);
+    }
+
+    var config = new config(slider);
 
     /**
      * public
      * resetSlider function: called on resize
      */
     var resetSlider = function () {
-        domElements.slidesWidth = domElements.slideContainer.getBoundingClientRect().width || domElements.slideContainer.offsetWidth;
-        domElements.frameWidth  = domElements.frame.getBoundingClientRect().width || domElements.frame.offsetWidth;
-        options.index = 0;
-        translate(options.index, options.rewindSpeed, options.ease);
+
+        config.domElements.slidesWidth = config.domElements.slideContainer.getBoundingClientRect().width || config.domElements.slideContainer.offsetWidth;
+        config.domElements.frameWidth = config.domElements.frame.getBoundingClientRect().width || config.domElements.frame.offsetWidth;
+        config.options.index = 0;
     };
 
     resetSlider();
+
+    /* initialize hammerjs on the slider element */
+    var mc = new Hammer(config.domElements.slideContainer);    
+    mc.on("panstart", onPanstart);
+
 
     /**
      * onResize function: event for resize of page
@@ -162,19 +210,22 @@ var swipr = function (slider, opts) {
      * prev function: called on clickhandler
      */
     var prev = function () {
-        slide(false, false);
+        translate((nextOffset), duration, config.options.ease, config.domElements.slideContainer.style);
+        config.position.x = nextOffset;
     };
 
     /**
      * next function: called on clickhandler
      */     
     var next = function () {
-        slide(false, true);
+        translate((nextOffset), duration, config.options.ease, config.domElements.slideContainer.style);
+        config.position.x = nextOffset;
     };
 
-    if (domElements.prevCtrl && domElements.nextCtrl) {
-        domElements.prevCtrl.addEventListener('click', prev);
-        domElements.nextCtrl.addEventListener('click', next);
+    /* fire off click events for next / prev controls */
+    if (config.domElements.prevCtrl && config.domElements.nextCtrl) {
+        config.domElements.prevCtrl.addEventListener('click', prev);
+        config.domElements.nextCtrl.addEventListener('click', next);
     }
 
 
@@ -196,80 +247,7 @@ var swipr = function (slider, opts) {
 
 module.exports = swipr;
 
-},{"./domElements":3,"./options":5,"./position":6,"./slide":7,"./translate":8,"hammerjs":9}],5:[function(require,module,exports){
-var options = {
-    slidesToScroll: 1,
-    slideSpeed: 300,
-    rewindSpeed: 600,
-    snapBackSpeed: 200,
-    ease: 'ease',
-    rewind: true,
-    index: 0,
-    slides: undefined
-};
-
-module.exports = options;
-
-},{}],6:[function(require,module,exports){
-var position = {
-    x: undefined,
-    y: undefined
-};
-
-module.exports = position;
-
-},{}],7:[function(require,module,exports){
-/**
- * slide function: slides to a given position in a given time in milliseconds
- *
- * @nextIndex {number} index number for the next slide
- * @direction {bool} true is forwards, false is reverse
- */
-var slide = function (nextIndex, direction) {
-
-    var clamp = require('./clamp');
-    var position = require('./position');
-    var translate = require('./translate');
-    var domElements = require('./domElements');
-    var options = require('./options');
-
-    var maxOffset   = (domElements.slidesWidth - domElements.frameWidth);
-    var limitIndex  = clamp(0, options.slides.length - 1);
-    var limitOffset = clamp(maxOffset * -1, 0);
-    var duration    = options.slideSpeed;
-
-    if (typeof nextIndex !== 'number') {
-        if (direction) {
-            nextIndex = options.index + options.slidesToScroll;
-        } else {
-            nextIndex = options.index - options.slidesToScroll;
-        }
-    }
-
-    nextIndex = limitIndex(nextIndex);
-    var nextOffset = limitOffset(options.slides[nextIndex].offsetLeft * -1);
-
-    if (options.rewind && Math.abs(position.x) === maxOffset && direction) {
-        nextOffset = 0;
-        nextIndex  = 0;
-        duration   = options.rewindSpeed;
-    }
-
-    /* translate to the nextOffset by a defined duration and ease function */
-    translate(nextOffset, duration, options.ease);
-
-    /* update the position with the next position */
-    position.x = nextOffset;
-
-    /* update the index with the nextIndex if offset of the nextIndex is in the range of the maxOffset */
-    if (options.slides[nextIndex].offsetLeft <= maxOffset) {
-        options.index = nextIndex;
-    }
-};
-
-module.exports = slide;
-
-},{"./clamp":2,"./domElements":3,"./options":5,"./position":6,"./translate":8}],8:[function(require,module,exports){
+},{"./clamp":2,"./translate":4,"hammerjs":5}],4:[function(require,module,exports){
 /**
  * translate function: translates to a given position in a given time in milliseconds
  *
@@ -278,9 +256,6 @@ module.exports = slide;
  * @ease      {string} easing css property
  */
 var translate = function (to, duration, ease, style) {
-
-    var domElements = require('./domElements')
-    var style = domElements.slideContainer.style;
 
     if (!style) {
         return;
@@ -307,7 +282,7 @@ var translate = function (to, duration, ease, style) {
 
 module.exports = translate;
 
-},{"./domElements":3}],9:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 /*! Hammer.JS - v2.0.4 - 2014-09-28
  * http://hammerjs.github.io/
  *

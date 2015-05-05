@@ -12,6 +12,8 @@ originally forked from [lory.js](http://meandmax.github.io/lory/) the touch enab
 
 ## Usage
 
+[codepen example](http://codepen.io/StevenIseki/pen/uilcC)
+
 - <b>add some html</b>
 
 ```html
