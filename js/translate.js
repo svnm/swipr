@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * translate function: translates to a given position in a given time in milliseconds
  *

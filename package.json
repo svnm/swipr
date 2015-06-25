@@ -5,7 +5,7 @@
   "main": "js/main.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/isekivacenz/swipr.git"
+    "url": "https://github.com/StevenIseki/swipr.git"
   },
   "dependencies": {
     "hammerjs": "~2.0.4"
@@ -13,6 +13,8 @@
   "keywords": [
     "swipr",
     "swiper",
+    "swipe",
+    "slide",
     "slider",
     "touch-slider",
     "touch enabled",

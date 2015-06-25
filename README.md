@@ -25,9 +25,6 @@ originally forked from [lory.js](http://meandmax.github.io/lory/) the touch enab
             <li>3</li>
         </ul>
     </div>
-
-    <span class="swipr_prev">&#8592;</span>
-    <span class="swipr_next"> &#8594; </span>
 </div>
 
 <script src="/scripts/bundle.js"></script>
@@ -37,11 +34,7 @@ originally forked from [lory.js](http://meandmax.github.io/lory/) the touch enab
 
 <i>using node / commonJs</i>
 
-Use browserify to bundle your main file below to bundle.js
-
-`browserify main.js -o bundle.js`
-
-initialize the swipr instance on your dom element.
+Use browserify or webpack to bundle your main file below to bundle.js
 
 ```javascript
     var swipr = require('swipr');
@@ -51,7 +44,7 @@ initialize the swipr instance on your dom element.
     });
 ```
 
-<i>or... throwing it in the browser</i>
+<i>or... throw it in the browser</i>
 
 include swipr.min.js, note this includes hammer.js pre baked.
 
