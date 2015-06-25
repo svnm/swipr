@@ -68,4 +68,4 @@ include swipr.min.js, note this includes hammer.js pre baked.
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT)
+[MIT](http://isekivacenz.mit-license.org/)
