@@ -1,9 +1,8 @@
 /* use browserify to build your main 
-
 	 first install browserify
-    npm install -g browserify
+       sudo npm install -g browserify
 	 then run
-	  browserify main.js -o bundle.js
+	   browserify main.js -o bundle.js
 */
 
 /* make sure you have run npm install swipr
