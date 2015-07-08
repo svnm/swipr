@@ -1,6 +1,6 @@
 {
   "name": "swipr",
-  "version": "1.0.11",
+  "version": "2.0.0",
   "description": "a minimal swipe carousel",
   "main": "js/main.js",
   "repository": {
