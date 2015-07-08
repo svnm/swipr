@@ -14,28 +14,20 @@ var swipr = function (parentElement, opts) {
      */    
     var onPanstart = function (event) {
 
-        config.domElements.slidesWidth = config.domElements.slideContainer.getBoundingClientRect().width || config.domElements.slideContainer.offsetWidth;
-        config.domElements.frameWidth = config.domElements.frame.getBoundingClientRect().width || config.domElements.frame.offsetWidth;
+        resetSlider()
 
         /* if no slides here, maybe the dom didn't reload, e.g. client side routing */
         if(!config.domElements.slides.length){
           config.domElements.slides = Array.prototype.slice.call(config.domElements.slideContainer.children);
         }
 
-
-        touchOffset = {
-            x: event.pointers[0].pageX,
-            y: event.pointers[0].pageY
-        };
-
+        touchOffset = { x: event.pointers[0].pageX, y: event.pointers[0].pageY };
         isScrolling = undefined;
-
         delta = {};
 
         /* on panning */
         mc.off("panmove");
         mc.on("panmove",function (event) {
-
 
             var touches = event.changedPointers[0];
 
@@ -57,44 +49,9 @@ var swipr = function (parentElement, opts) {
         mc.off("panend");
         mc.on("panend",function (event) {
 
-            config.domElements.slides = Array.prototype.slice.call(config.domElements.slideContainer.children);
-
-
+            resetSlider()
             var direction = delta.x < 0;
-            var maxOffset   = (config.domElements.slidesWidth - config.domElements.frameWidth);
-            var limitOffset = clamp(maxOffset * -1, 0);
-            var limitIndex  = clamp(0, config.domElements.slides.length - 1);
-            var duration    = config.options.slideSpeed;
-
-            /* update the index */
-            if (direction) {
-                config.options.nextIndex = config.options.index + config.options.slidesToScroll;
-            } else {
-                config.options.nextIndex = config.options.index - config.options.slidesToScroll;
-            }
-            config.options.nextIndex = limitIndex(config.options.nextIndex);
-
-
-            var nextOffset = limitOffset(config.domElements.slides[config.options.nextIndex].offsetLeft * -1);
-
-            /* on rewind */
-            if (config.options.rewind && Math.abs(config.position.x) === maxOffset && direction) {
-                nextOffset = 0;
-                config.options.nextIndex  = 0;
-                duration = config.options.rewindSpeed;
-            }
-
-            /* translate to the nextOffset by a defined duration and ease function */
-            translate((nextOffset), duration, config.options.ease, config.domElements.slideContainer.style);
-
-            /* update the position with the next position */
-            config.position.x = nextOffset;
-
-            /* update the index with the nextIndex if offset of the nextIndex is in the range of the maxOffset */
-            if (config.domElements.slides[config.options.nextIndex].offsetLeft <= maxOffset) {
-                config.options.index = config.options.nextIndex;
-                config.options.nextIndex++;
-            }
+            slide(direction)
 
         });
     };
@@ -139,17 +96,30 @@ var swipr = function (parentElement, opts) {
 
     var config = new config(parentElement);
 
+
     /**
-     * public
-     * resetSlider function: called on resize
+     * findAncestor: find an ancestor
+     */     
+    var findAncestor = function (el, cls) {
+        while ((el = el.parentElement) && !el.classList.contains(cls));
+        return el;
+    }
+
+
+    /**
+     * resetSlider function: reset the slide container elements, slide elements, slide and frame width
      */
     var resetSlider = function () {
+        config.domElements.slideContainer = config.domElements.frame.querySelector('.swipr_slides');
+        config.domElements.slides = Array.prototype.slice.call(config.domElements.slideContainer.children);
         config.domElements.slidesWidth = config.domElements.slideContainer.getBoundingClientRect().width || config.domElements.slideContainer.offsetWidth;
         config.domElements.frameWidth = config.domElements.frame.getBoundingClientRect().width || config.domElements.frame.offsetWidth;
-        config.options.index = 0;
     };
 
+
+    /* initially reset the slider */
     resetSlider();
+
 
     /* initialize hammerjs on the slider element */
     var mc = new Hammer(config.domElements.slideContainer);    
@@ -157,67 +127,33 @@ var swipr = function (parentElement, opts) {
 
 
     /**
-     * prev function: called on clickhandler
-     */
-    var prev = function () {
-
-        //var slider = findAncestor(event.target, "react-swipr")
-        //config.domElements.frame = slider.querySelector('.swipr');
-        config.domElements.slideContainer = config.domElements.frame.querySelector('.swipr_slides');
-        config.domElements.slides = Array.prototype.slice.call(config.domElements.slideContainer.children);
-
-        // reset
-        config.domElements.slidesWidth = config.domElements.slideContainer.getBoundingClientRect().width || config.domElements.slideContainer.offsetWidth;
-        config.domElements.frameWidth = config.domElements.frame.getBoundingClientRect().width || config.domElements.frame.offsetWidth;
-
-        var maxOffset   = (config.domElements.slidesWidth - config.domElements.frameWidth);
-        var limitOffset = clamp(maxOffset * -1, 0);
-        var limitIndex  = clamp(0, config.domElements.slides.length - 1);
-        var duration    = config.options.slideSpeed;
-
-        /* update the index */
-        var direction = false
-        if (direction) {
-            config.options.nextIndex = config.options.index + config.options.slidesToScroll;
-        } else {
-            config.options.nextIndex = config.options.index - config.options.slidesToScroll;
-        }
-        config.options.nextIndex = limitIndex(config.options.nextIndex);
-
-
-        var nextOffset = limitOffset(config.domElements.slides[config.options.nextIndex].offsetLeft * -1);
-
-        /* translate to the nextOffset by a defined duration and ease function */
-        translate((nextOffset), duration, config.options.ease, config.domElements.slideContainer.style);
-
-        /* update the position with the next position */
-        config.position.x = nextOffset;
-
-        /* update the index with the nextIndex if offset of the nextIndex is in the range of the maxOffset */
-        if (config.domElements.slides[config.options.nextIndex].offsetLeft <= maxOffset) {
-            config.options.index = config.options.nextIndex;
-            config.options.nextIndex--;
-        }
-    };
-
-    var findAncestor = function (el, cls) {
-        while ((el = el.parentElement) && !el.classList.contains(cls));
-        return el;
-    }
-
-    /**
      * next function: called on clickhandler
      */     
     var next = function (event) {
 
-        //var slider = findAncestor(event.target, "react-swipr")
-        //config.domElements.frame = slider.querySelector('.swipr');
-        config.domElements.slideContainer = config.domElements.frame.querySelector('.swipr_slides');
-        config.domElements.slides = Array.prototype.slice.call(config.domElements.slideContainer.children);
+        resetSlider()
+        var direction = true
+        slide(direction)
 
-        // reset
-        config.domElements.slidesWidth = config.domElements.slideContainer.getBoundingClientRect().width || config.domElements.slideContainer.offsetWidth;
-        config.domElements.frameWidth = config.domElements.frame.getBoundingClientRect().width || config.domElements.frame.offsetWidth;
+    };
+
+
+    /**
+     * prev function: called on clickhandler
+     */
+    var prev = function () {
+
+        resetSlider()
+        var direction = false
+        slide(direction)
+
+    };
+
+
+    /**
+     * slide function: slides the elements forward or backwards based on direction
+     */
+    var slide = function (direction) {
 
         var maxOffset   = (config.domElements.slidesWidth - config.domElements.frameWidth);
         var limitOffset = clamp(maxOffset * -1, 0);
@@ -225,7 +161,6 @@ var swipr = function (parentElement, opts) {
         var duration    = config.options.slideSpeed;
 
         /* update the index */
-        var direction = true
         if (direction) {
             config.options.nextIndex = config.options.index + config.options.slidesToScroll;
         } else {
@@ -255,19 +190,17 @@ var swipr = function (parentElement, opts) {
         }
     };
 
+
     /* fire off click events for next / prev controls */
     if (config.domElements.prevCtrl && config.domElements.nextCtrl) {
-        config.domElements.prevCtrl.addEventListener('click', prev);
         config.domElements.nextCtrl.addEventListener('click', next);
+        config.domElements.prevCtrl.addEventListener('click', prev);
     }
 
-    return {
 
-        reset: function () {
-            resetSlider();
-        },
-        prev: prev,
-        next: next
+    return {
+        next: next,
+        prev: prev
     };
 };
 
