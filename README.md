@@ -44,17 +44,6 @@ Use browserify or webpack to bundle your main file below to bundle.js
     });
 ```
 
-<i>or... throw it in the browser</i>
-
-include swipr.min.js, note this includes hammer.js pre baked.
-
-```javascript
-    document.addEventListener('DOMContentLoaded', function () {
-        var simple = document.querySelector('.swipr-example');
-        swipr(simple);
-    });
-```
-
 - <b>you need some minimal css for styling your slides</b>
 
 [style.css](https://raw.githubusercontent.com/isekivacenz/swipr/master/example/styles.css)
