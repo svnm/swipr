@@ -19,9 +19,8 @@ Uses hammer.js so it works the same on the web as on mobile. Swipe or Click...
 [codepen example](http://codepen.io/StevenIseki/pen/uilcC)
 
 - <b>add some html</b>
-- your container
-- swipr wrapper element
-- then your li slides with whatever content you like
+
+<i>your container, swipr wrapper element and your li slides with whatever content you like</i>
 
 ```html
 <div class="swipr_example">
