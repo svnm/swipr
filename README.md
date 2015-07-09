@@ -48,7 +48,7 @@ Use browserify or webpack to bundle your main file below to bundle.js
 
 - <b>you need some minimal css for styling your slides</b>
 
-[style.css](https://raw.githubusercontent.com/isekivacenz/swipr/master/example/styles.css)
+[style.css](https://github.com/StevenIseki/swipr/blob/master/example/styles.css)
 
 ## License
 
