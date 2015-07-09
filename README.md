@@ -1,9 +1,5 @@
 # swipr
 
-swipr is a very minimal touch enabled swipe carousel
-
-## Why
-
 originally forked from [lory.js](http://meandmax.github.io/lory/) the touch enabled minimalistic slider written in vanilla JavaScript
 
 Now just 260 lines of es5 code :) Imagine if we wrote it in es6?
