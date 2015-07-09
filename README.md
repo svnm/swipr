@@ -2,14 +2,13 @@
 
 swipr is a very minimal touch enabled swipe carousel
 
-![](http://img1.wikia.nocookie.net/__cb20130426021828/villains/images/thumb/7/78/Swiper.jpg/500px-Swiper.jpg)
+## Why
 
 originally forked from [lory.js](http://meandmax.github.io/lory/) the touch enabled minimalistic slider written in vanilla JavaScript
 
-## Minimal
+Now just 260 lines of es5 code :) Imagine if we wrote it in es6?
 
-just 260 lines of es5 code :) Imagine if we wrote it in es6?
-
+Uses hammer.js so it works the same on the web as on mobile. Swipe or Click...
 
 ## Installation
 
@@ -20,6 +19,9 @@ just 260 lines of es5 code :) Imagine if we wrote it in es6?
 [codepen example](http://codepen.io/StevenIseki/pen/uilcC)
 
 - <b>add some html</b>
+- your container
+- swipr wrapper element
+- then your li slides with whatever content you like
 
 ```html
 <div class="swipr_example">
@@ -35,7 +37,7 @@ just 260 lines of es5 code :) Imagine if we wrote it in es6?
 <script src="/scripts/bundle.js"></script>
 ```
 
-- <b>now some javascript</b>
+- <b>now some javascript to init the slider</b>
 
 <i>using node / commonJs</i>
 
