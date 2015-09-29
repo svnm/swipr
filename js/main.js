@@ -110,9 +110,11 @@ var swipr = function (parentElement, opts) {
      * resetSlider function: reset the slide container elements, slide elements, slide and frame width
      */
     var resetSlider = function () {
-        config.domElements.slideContainer = config.domElements.frame.querySelector('.swipr_slides');
-        config.domElements.slides = Array.prototype.slice.call(config.domElements.slideContainer.children);
-        config.domElements.slidesWidth = config.domElements.slideContainer.getBoundingClientRect().width || config.domElements.slideContainer.offsetWidth;
+        var slideContainer = config.domElements.frame.querySelector('.swipr_slides');
+
+        config.domElements.slideContainer = slideContainer;
+        config.domElements.slides = Array.prototype.slice.call(slideContainer.children);
+        config.domElements.slidesWidth = slideContainer.scrollWidth || slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
         config.domElements.frameWidth = config.domElements.frame.getBoundingClientRect().width || config.domElements.frame.offsetWidth;
     };
 
