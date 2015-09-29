@@ -48,11 +48,10 @@ var swipr = function (parentElement, opts) {
         /* panning ends */
         mc.off("panend");
         mc.on("panend",function (event) {
-
             resetSlider()
-            var direction = delta.x < 0;
-            slide(direction)
-
+            var canSlide = Math.abs(delta.x) > config.options.tolerance;
+            var direction = canSlide ? delta.x < 0 : null;
+            slide(direction);
         });
     };
 
@@ -91,7 +90,10 @@ var swipr = function (parentElement, opts) {
           rewind: true,
           index: 0,
           nextIndex: 1,
+          tolerance: 0
         };
+
+        for (var key in opts || {}) { this.options[key] = opts[key]; }
     }
 
     var config = new config(parentElement);
@@ -110,9 +112,11 @@ var swipr = function (parentElement, opts) {
      * resetSlider function: reset the slide container elements, slide elements, slide and frame width
      */
     var resetSlider = function () {
-        config.domElements.slideContainer = config.domElements.frame.querySelector('.swipr_slides');
-        config.domElements.slides = Array.prototype.slice.call(config.domElements.slideContainer.children);
-        config.domElements.slidesWidth = config.domElements.slideContainer.getBoundingClientRect().width || config.domElements.slideContainer.offsetWidth;
+        var slideContainer = config.domElements.frame.querySelector('.swipr_slides');
+
+        config.domElements.slideContainer = slideContainer;
+        config.domElements.slides = Array.prototype.slice.call(slideContainer.children);
+        config.domElements.slidesWidth = slideContainer.scrollWidth || slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
         config.domElements.frameWidth = config.domElements.frame.getBoundingClientRect().width || config.domElements.frame.offsetWidth;
     };
 
@@ -161,11 +165,14 @@ var swipr = function (parentElement, opts) {
         var duration    = config.options.slideSpeed;
 
         /* update the index */
-        if (direction) {
+        if (direction === null) {
+            config.options.nextIndex = config.options.index;
+        } else if (direction) {
             config.options.nextIndex = config.options.index + config.options.slidesToScroll;
         } else {
             config.options.nextIndex = config.options.index - config.options.slidesToScroll;
         }
+
         config.options.nextIndex = limitIndex(config.options.nextIndex);
 
         var nextOffset = limitOffset(config.domElements.slides[config.options.nextIndex].offsetLeft * -1);
@@ -188,6 +195,8 @@ var swipr = function (parentElement, opts) {
             config.options.index = config.options.nextIndex;
             config.options.nextIndex++;
         }
+
+        if (config.options.onIndexChange) { config.options.onIndexChange(config.options.index); }
     };
 
 
