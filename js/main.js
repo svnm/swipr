@@ -92,6 +92,8 @@ var swipr = function (parentElement, opts) {
           index: 0,
           nextIndex: 1,
         };
+
+        for (var key in opts || {}) { this.options[key] = opts[key]; }
     }
 
     var config = new config(parentElement);
