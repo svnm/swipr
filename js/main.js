@@ -192,6 +192,8 @@ var swipr = function (parentElement, opts) {
             config.options.index = config.options.nextIndex;
             config.options.nextIndex++;
         }
+
+        if (config.options.onIndexChange) { config.options.onIndexChange(config.options.index); }
     };
 
 
