@@ -89,7 +89,7 @@ var swipr = function (parentElement, opts) {
           ease: 'ease',
           rewind: true,
           index: 0,
-          nextIndex: 1,
+          nextIndex: (opts.index || 0) + 1,
           tolerance: 0
         };
 
@@ -119,10 +119,6 @@ var swipr = function (parentElement, opts) {
         config.domElements.slidesWidth = slideContainer.scrollWidth || slideContainer.getBoundingClientRect().width || slideContainer.offsetWidth;
         config.domElements.frameWidth = config.domElements.frame.getBoundingClientRect().width || config.domElements.frame.offsetWidth;
     };
-
-
-    /* initially reset the slider */
-    resetSlider();
 
 
     /* initialize hammerjs on the slider element */
@@ -157,12 +153,12 @@ var swipr = function (parentElement, opts) {
     /**
      * slide function: slides the elements forward or backwards based on direction
      */
-    var slide = function (direction) {
+    var slide = function (direction, slideSpeed) {
 
         var maxOffset   = (config.domElements.slidesWidth - config.domElements.frameWidth);
         var limitOffset = clamp(maxOffset * -1, 0);
         var limitIndex  = clamp(0, config.domElements.slides.length - 1);
-        var duration    = config.options.slideSpeed;
+        var duration    = slideSpeed == undefined ? config.options.slideSpeed : slideSpeed;
 
         /* update the index */
         if (direction === null) {
@@ -207,7 +203,21 @@ var swipr = function (parentElement, opts) {
     }
 
 
+    var setIndex = function (index) {
+      if (index === null || index === undefined || index === config.options.index) { return; }
+      resetSlider();
+      config.options.index = index;
+      slide(null);
+    }
+
+
+    /* initially reset the slider */
+    resetSlider();
+    slide(null, 0);
+
+
     return {
+        setIndex: setIndex,
         next: next,
         prev: prev
     };
