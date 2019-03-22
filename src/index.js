@@ -1,7 +1,6 @@
 'use strict';
 
-var swipr = function (parentElement, opts) {
-
+var swipr = function (parentElement) {
     var translate = require('./translate');
     var clamp = require('./clamp');
     var Hammer = require("hammerjs");
@@ -11,7 +10,7 @@ var swipr = function (parentElement, opts) {
 
     /**
      * onPanstart function: called when panning kicks off
-     */    
+     */
     var onPanstart = function (event) {
 
         resetSlider()
@@ -89,11 +88,9 @@ var swipr = function (parentElement, opts) {
           ease: 'ease',
           rewind: true,
           index: 0,
-          nextIndex: (opts.index || 0) + 1,
+          nextIndex: 0,
           tolerance: 0
         };
-
-        for (var key in opts || {}) { this.options[key] = opts[key]; }
     }
 
     var config = new config(parentElement);
@@ -101,7 +98,7 @@ var swipr = function (parentElement, opts) {
 
     /**
      * findAncestor: find an ancestor
-     */     
+     */
     var findAncestor = function (el, cls) {
         while ((el = el.parentElement) && !el.classList.contains(cls));
         return el;
@@ -122,13 +119,13 @@ var swipr = function (parentElement, opts) {
 
 
     /* initialize hammerjs on the slider element */
-    var mc = new Hammer(config.domElements.slideContainer);    
+    var mc = new Hammer(config.domElements.slideContainer);
     mc.on("panstart", onPanstart);
 
 
     /**
      * next function: called on clickhandler
-     */     
+     */
     var next = function (event) {
 
         resetSlider()

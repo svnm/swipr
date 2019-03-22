@@ -1,12 +1,14 @@
-# swipr
+## swipr
 
-originally forked from [lory.js](http://meandmax.github.io/lory/) the touch enabled minimalistic slider written in vanilla JavaScript
+[![npm version](https://badge.fury.io/js/swipr.svg)](https://badge.fury.io/js/swipr)
 
-Uses hammer.js so it works the same on the web as on mobile. Swipe or Click...
+![](https://raw.githubusercontent.com/StevenIseki/swipr/master/example/screenshot.gif)
+
+Uses hammer.js for smooth and responsive touch swiping
 
 ## Installation
 
-`npm install swipr --save`
+`yarn add swipr`
 
 ## Usage
 
@@ -18,23 +20,17 @@ Uses hammer.js so it works the same on the web as on mobile. Swipe or Click...
 
 ```html
 <div class="swipr_example">
-    <div class="swipr">
-        <ul class="swipr_slides">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-        </ul>
-    </div>
+  <div class="swipr">
+    <ul class="swipr_slides">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </div>
 </div>
-
-<script src="/scripts/bundle.js"></script>
 ```
 
 - <b>now some javascript to init the slider</b>
-
-<i>using node / commonJs</i>
-
-Use browserify or webpack to bundle your main file below to bundle.js
 
 ```javascript
     var swipr = require('swipr');
@@ -47,6 +43,19 @@ Use browserify or webpack to bundle your main file below to bundle.js
 - <b>you need some minimal css for styling your slides</b>
 
 [style.css](https://github.com/StevenIseki/swipr/blob/master/example/styles.css)
+
+## Development
+    yarn
+    npm run dev
+
+## Build
+    yarn
+    npm run build
+    npm login
+    npm version patch
+    git add -A
+    git push origin master
+    npm publish
 
 ## License
 

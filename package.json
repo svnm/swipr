@@ -1,14 +1,38 @@
 {
   "name": "swipr",
   "version": "2.0.2",
-  "description": "a minimal swipe carousel",
-  "main": "js/main.js",
+  "description": "A minimal swipe carousel",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/StevenIseki/swipr.git"
   },
+  "author": "Steven Iseki",
+  "license": "MIT",
+  "homepage": "https://github.com/StevenIseki/swipr.git",
   "dependencies": {
-    "hammerjs": "~2.0.4"
+    "hammerjs": "2.0.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "7.3.3",
+    "@babel/preset-env": "7.3.1",
+    "@babel/preset-react": "7.0.0",
+    "babel-loader": "8.0.5",
+    "babel-tape-runner": "^3.0.0",
+    "expect": "24.1.0",
+    "html-webpack-plugin": "3.2.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "tape": "4.10.1",
+    "webpack": "4.29.4",
+    "webpack-cli": "3.2.3",
+    "webpack-dev-server": "3.1.14"
+  },
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "dev": "webpack-dev-server --mode=development --port 3000 --inline --hot --config example/webpack.config",
+    "test": "babel-tape-runner test/*.js"
   },
   "keywords": [
     "swipr",
@@ -22,7 +46,5 @@
     "minimal",
     "simple slider",
     "minimal slider"
-  ],
-  "author": "Steven Iseki James Z",
-  "license": "MIT"
+  ]
 }
