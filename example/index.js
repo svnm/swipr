@@ -6,7 +6,6 @@ class TestComponent extends Component {
   componentDidMount () {
     document.addEventListener('DOMContentLoaded', function () {
       const $elem = document.querySelector('.swipr_example')
-      console.log($elem)
       swipr($elem)
     })
   }

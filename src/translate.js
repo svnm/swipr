@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * translate function: translates to a given position in a given time in milliseconds
  *
@@ -7,29 +5,18 @@
  * @duration  {number} time in milliseconds for the transistion
  * @ease      {string} easing css property
  */
-var translate = function (to, duration, ease, style) {
+export const translate = (to, duration, ease, style) => {
+  if (!style) {
+    return
+  }
 
-    if (!style) {
-        return;
-    }
+  style.webkitTransitionTimingFunction = style.MozTransitionTimingFunction = style.msTransitionTimingFunction = style.OTransitionTimingFunction = style.transitionTimingFunction = ease
 
-    style.webkitTransitionTimingFunction =
-    style.MozTransitionTimingFunction    =
-    style.msTransitionTimingFunction     =
-    style.OTransitionTimingFunction      =
-    style.transitionTimingFunction       = ease;
+  style.webkitTransitionDuration = style.MozTransitionDuration = style.msTransitionDuration = style.OTransitionDuration = style.transitionDuration =
+    duration + 'ms'
 
-    style.webkitTransitionDuration =
-    style.MozTransitionDuration    =
-    style.msTransitionDuration     =
-    style.OTransitionDuration      =
-    style.transitionDuration       = duration + 'ms';
+  style.webkitTransform = 'translate3d(' + to + 'px, 0, 0)'
 
-    style.webkitTransform = 'translate3d(' + to + 'px, 0, 0)';
-
-    style.msTransform  =
-    style.MozTransform =
-    style.OTransform   = 'translateX(' + to + 'px)';
-};
-
-module.exports = translate;
+  style.msTransform = style.MozTransform = style.OTransform =
+    'translateX(' + to + 'px)'
+}
