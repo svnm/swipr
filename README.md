@@ -2,8 +2,6 @@
 
 originally forked from [lory.js](http://meandmax.github.io/lory/) the touch enabled minimalistic slider written in vanilla JavaScript
 
-just 260 lines of es5 code :) Imagine if we wrote it in es6?
-
 Uses hammer.js so it works the same on the web as on mobile. Swipe or Click...
 
 ## Installation
