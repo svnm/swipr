@@ -16,7 +16,5 @@ export const clamp = (min, max) => {
     max = tmp
   }
 
-  return function(value) {
-    return Math.min(Math.max(value, min), max)
-  }
+  return value => Math.min(Math.max(value, min), max)
 }

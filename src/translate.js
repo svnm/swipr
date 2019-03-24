@@ -10,13 +10,7 @@ export const translate = (to, duration, ease, style) => {
     return
   }
 
-  style.webkitTransitionTimingFunction = style.MozTransitionTimingFunction = style.msTransitionTimingFunction = style.OTransitionTimingFunction = style.transitionTimingFunction = ease
-
-  style.webkitTransitionDuration = style.MozTransitionDuration = style.msTransitionDuration = style.OTransitionDuration = style.transitionDuration =
-    duration + 'ms'
-
-  style.webkitTransform = 'translate3d(' + to + 'px, 0, 0)'
-
-  style.msTransform = style.MozTransform = style.OTransform =
-    'translateX(' + to + 'px)'
+  style.transitionTimingFunction = ease
+  style.transitionDuration = duration + 'ms'
+  style.transform = 'translate3d(' + to + 'px, 0, 0)'
 }

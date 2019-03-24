@@ -2,10 +2,10 @@ import {translate} from './translate'
 import {clamp} from './clamp'
 const Hammer = require('hammerjs')
 
-const Swipr = function(parentElement) {
-  var touchOffset
-  var delta
-  var isScrolling
+const Swipr = parentElement => {
+  let touchOffset
+  let delta
+  let isScrolling
 
   /**
    * onPanstart function: called when panning kicks off
@@ -27,7 +27,7 @@ const Swipr = function(parentElement) {
     /* on panning */
     mc.off('panmove')
     mc.on('panmove', function(event) {
-      var touches = event.changedPointers[0]
+      let touches = event.changedPointers[0]
 
       delta = {
         x: touches.pageX - touchOffset.x,
@@ -50,7 +50,7 @@ const Swipr = function(parentElement) {
 
     /* panning ends */
     mc.off('panend')
-    mc.on('panend', function(event) {
+    mc.on('panend', event => {
       resetSlider()
       const canSlide = Math.abs(delta.x) > config.options.tolerance
       const direction = canSlide ? delta.x < 0 : null
@@ -61,7 +61,7 @@ const Swipr = function(parentElement) {
   /**
    * config function: options stored for the swipr instance
    */
-  let Config = function(slider) {
+  let Config = function (slider) {
     this.domElements = {
       frame: undefined,
       slideContainer: undefined,
@@ -104,8 +104,8 @@ const Swipr = function(parentElement) {
   /**
    * resetSlider function: reset the slide container elements, slide elements, slide and frame width
    */
-  const resetSlider = function() {
-    var slideContainer = config.domElements.frame.querySelector('.swipr_slides')
+  const resetSlider = () => {
+    let slideContainer = config.domElements.frame.querySelector('.swipr_slides')
 
     config.domElements.slideContainer = slideContainer
     config.domElements.slides = Array.prototype.slice.call(
@@ -127,7 +127,7 @@ const Swipr = function(parentElement) {
   /**
    * next function: called on clickhandler
    */
-  const next = function(event) {
+  const next = event => {
     resetSlider()
     slide(true)
   }
@@ -135,7 +135,7 @@ const Swipr = function(parentElement) {
   /**
    * prev function: called on clickhandler
    */
-  const prev = function() {
+  const prev = () => {
     resetSlider()
     slide(false)
   }
@@ -143,13 +143,11 @@ const Swipr = function(parentElement) {
   /**
    * slide function: slides the elements forward or backwards based on direction
    */
-  const slide = function(direction, slideSpeed) {
-    var maxOffset =
-      config.domElements.slidesWidth - config.domElements.frameWidth
-    var limitOffset = clamp(maxOffset * -1, 0)
-    var limitIndex = clamp(0, config.domElements.slides.length - 1)
-    var duration =
-      slideSpeed == undefined ? config.options.slideSpeed : slideSpeed
+  const slide = (direction, slideSpeed) => {
+    const maxOffset = config.domElements.slidesWidth - config.domElements.frameWidth
+    const limitOffset = clamp(maxOffset * -1, 0)
+    const limitIndex = clamp(0, config.domElements.slides.length - 1)
+    let duration = slideSpeed == undefined ? config.options.slideSpeed : slideSpeed
 
     /* update the index */
     if (direction === null) {

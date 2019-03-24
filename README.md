@@ -12,37 +12,50 @@ Uses hammer.js for smooth and responsive touch swiping
 
 ## Usage
 
-[codepen example](http://codepen.io/StevenIseki/pen/uilcC)
+```jsx
+import ReactDOM from 'react-dom'
+import React, { Component } from 'react'
+import swipr from 'swipr'
+import style from './swipr.css'
 
-- <b>add some html</b>
-
-<i>your container, swipr wrapper element and your li slides with whatever content you like</i>
-
-```html
-<div class="swipr_example">
-  <div class="swipr">
-    <ul class="swipr_slides">
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-    </ul>
-  </div>
-</div>
-```
-
-- <b>now some javascript to init the slider</b>
-
-```javascript
-    var swipr = require('swipr');
+class TestComponent extends Component {
+  componentDidMount () {
     document.addEventListener('DOMContentLoaded', function () {
-        var simple = document.querySelector('.swipr-example');
-        swipr(simple);
-    });
+      const $elem = document.querySelector('.swipr_example')
+      swipr($elem)
+    })
+  }
+
+  render () {
+    return (
+      <div>
+        <div className='swipr_example'>
+          <div className='swipr'>
+            <ul className='swipr_slides'>
+              <li>
+                <img src='/react.png' />
+              </li>
+              <li>
+                <img src='/styled-components.png' />
+              </li>
+              <li>
+                <img src='/webpack.png' />
+              </li>
+            </ul>
+        </div>
+        <span className='swipr_prev' />
+        <span className='swipr_next' />
+      </div>
+    </div>
+    )
+  }
+}
+
+ReactDOM.render(
+  <TestComponent />,
+  document.getElementById('root')
+)
 ```
-
-- <b>you need some minimal css for styling your slides</b>
-
-[style.css](https://github.com/StevenIseki/swipr/blob/master/example/styles.css)
 
 ## Development
     yarn
