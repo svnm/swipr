@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom'
 import React, { Component } from 'react'
-import swipr from '../src/index'
+import swipr from '../lib/index'
 import style from './swipr.css'
 
 class TestComponent extends Component {
